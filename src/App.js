@@ -13,8 +13,7 @@ import Navbar from 'components/navbar';
 
 const App = ({cart, requestProducts}) => {
   return (
-    <Router>
-      <div>
+    <Router basename="/">
         <Navbar cart={cart} />
 
         <Switch>
@@ -26,7 +25,6 @@ const App = ({cart, requestProducts}) => {
         <Route exact path="/">
           <Redirect to="/products" />
         </Route>
-      </div>
     </Router>
   );
 }
