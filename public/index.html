@@ -36,20 +36,21 @@
       <form id="form-dealers">
         <button type="button" class="btn waves-effect waves-light" id="start-btn">Запустить приложение</button>
         <h4>Выберите дилеров:</h4>
-        <label>
-          <input type="checkbox" class="filled-in ch-dealers" value="0c4aab30" />
-          <span>0c4aab30</span>
-        </label>
-        <br />
-        <label>
-          <input type="checkbox" class="filled-in ch-dealers" value="1efa7e46" />
-          <span>1efa7e46</span>
-        </label>
-        <br />
-        <label>
-          <input type="checkbox" class="filled-in ch-dealers" value="86e64a33" />
-          <span>86e64a33</span>
-        </label>
+
+        <!-- Preloader for dealers -->
+        <div id="chs-preloader" class="preloader-wrapper small active">
+          <div class="spinner-layer spinner-green-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+        <!--=========================-->
+        <div id="checkboxes-placeholder"></div>
       </form>
     </div>
   </body>

@@ -10,7 +10,7 @@ import saga from 'sagas/index';
 
 import App from './App';
 
-import { startAppHandler } from 'startApp';
+import { startAppHandler, renderDealers } from 'startApp';
 
 import './style/utils.css';
 
@@ -46,3 +46,6 @@ const btnStartApp = document.getElementById('start-btn');
 
 btnStartApp.addEventListener('click', (e) => startAppHandler(e, init, 'form'))
 document.addEventListener('app_load', (e) => startAppHandler(e, init));
+
+// get and render dealers
+renderDealers();

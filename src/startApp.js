@@ -1,3 +1,15 @@
+import API from 'api/index';
+
+export const renderDealers = async () => {
+    try {
+        const dealers = await API.getDealers();
+        renderCheckboxes(dealers);
+    } catch(error) {
+        console.log(error);
+    }
+
+}
+
 export const startAppHandler = (e, callback, type) => {
     let dealers = [];
 
@@ -17,4 +29,20 @@ export const startAppHandler = (e, callback, type) => {
 
     document.getElementById('start-app').remove();
     callback(dealers);
+}
+
+const renderCheckboxes = (dealers) => {
+    const checkboxes = [];
+    const preloader = document.getElementById('chs-preloader');
+    const container = document.getElementById('checkboxes-placeholder');
+
+    dealers.forEach((dealer) => {
+        checkboxes.push(`
+            <label>
+                <input type="checkbox" class="filled-in ch-dealers" value="${dealer}" />
+                <span>${dealer}</span>
+            </label><br />`)
+    });
+    preloader.remove();
+    container.innerHTML = checkboxes.join('');
 }
