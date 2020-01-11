@@ -13,7 +13,7 @@ import Navbar from 'components/navbar';
 
 const App = ({cart, requestProducts}) => {
   return (
-    <Router basename="/">
+    <Router basename="/online-store/build/">
         <Navbar cart={cart} />
 
         <Switch>
