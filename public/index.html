@@ -24,20 +24,33 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Online Store</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <div id="start-app" class="container px-20">
+      <form id="form-dealers">
+        <button type="button" class="btn" id="start-btn">Запустить приложение</button>
+        <h4>Выберите дилеров:</h4>
+        <label>
+          <input type="checkbox" class="filled-in ch-dealers" value="0c4aab30" />
+          <span>0c4aab30</span>
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" class="filled-in ch-dealers" value="1efa7e46" />
+          <span>1efa7e46</span>
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" class="filled-in ch-dealers" value="86e64a33" />
+          <span>86e64a33</span>
+        </label>
+      </form>
+    </div>
   </body>
 </html>

@@ -1,12 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+
+import rootReducer from './reducers';
+import saga from 'sagas/index';
+
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { startAppHandler } from 'startApp';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import './style/utils.css';
+
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
+
+const init = (dealers) => {
+    const store = createStore(
+        rootReducer,
+        { dealers },
+        enhancer
+    );
+
+    sagaMiddleware.run(saga);
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root')
+    );
+}
+
+//==============================================================
+// Create the event
+const dealers =  [ "0c4aab30"];
+window.eventAPP = new CustomEvent("app_load", {'detail': dealers });
+
+const btnStartApp = document.getElementById('start-btn');
+
+btnStartApp.addEventListener('click', (e) => startAppHandler(e, init, 'form'))
+document.addEventListener('app_load', (e) => startAppHandler(e, init));
