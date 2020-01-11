@@ -8,6 +8,10 @@ import Loader from 'components/loader';
 
 const ProductsPage = ({products, dealers, isLoading, requestProducts, addToCart}) => {
 
+    const clickAddHandler = (product) => {
+
+    }
+
     useEffect(() => {
        requestProducts(dealers);
     }, [])
@@ -34,7 +38,7 @@ const ProductsPage = ({products, dealers, isLoading, requestProducts, addToCart}
                                     >
                                         <button
                                             type="button"
-                                            className="btn"
+                                            className="btn waves-effect waves-light"
                                             onClick={() => addToCart(card)}
                                         >
                                             <i className="material-icons left">add_shopping_cart</i>

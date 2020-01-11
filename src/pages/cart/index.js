@@ -40,7 +40,7 @@ const Cart = ({ products, addToCart, removeFromCart, removeItemFromCart, removeA
                 <div className="row">
                     <button
                         type="button"
-                        className="col btn-floating red py-0"
+                        className="col waves-effect waves-light btn-floating red py-0"
                         onClick={() => clickRemoveHandler(product)}
                     >
                     <i className="material-icons">remove</i>
@@ -55,7 +55,7 @@ const Cart = ({ products, addToCart, removeFromCart, removeItemFromCart, removeA
 
                     <button 
                         type="button"
-                        className="col btn-floating green py-0"
+                        className="col waves-effect waves-light btn-floating green py-0"
                         onClick={() => addToCart(product)}
                     >
                         <i className="material-icons">add</i>
@@ -63,7 +63,7 @@ const Cart = ({ products, addToCart, removeFromCart, removeItemFromCart, removeA
                 </div>
                 <button 
                     type="button"
-                    className="btn"
+                    className="btn waves-effect waves-light"
                     onClick={() => removeItemFromCart(product)}
                 >
                         <i className="material-icons left">delete_forever</i>
