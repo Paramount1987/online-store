@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -14,17 +14,18 @@ import Navbar from 'components/navbar';
 const App = ({cart, requestProducts}) => {
   return (
     <Router basename="/online-store/build/">
-        <Navbar cart={cart} />
+        <Navbar cart={cart} /> 
 
         <Switch>
           <Route path="/products" component={Products} />
-          <Route path="/cart" component={Cart} />>
+          <Route path="/cart" component={Cart} />
           <Route component={PageNotFound} />
         </Switch>
 
         <Route exact path="/">
           <Redirect to="/products" />
         </Route>
+   
     </Router>
   );
 }
