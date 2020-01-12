@@ -20,7 +20,7 @@ const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 
-const init = (dealers) => {
+const initApp = (dealers) => {
     const store = createStore(
         rootReducer,
         { dealers },
@@ -38,14 +38,12 @@ const init = (dealers) => {
 }
 
 //==============================================================
-// Create the event
-const dealers =  [ "0c4aab30"];
-window.eventAPP = new CustomEvent("app_load", {'detail': dealers });
-
+// Create the event for launch app programmatically
+window.eventAPP = new CustomEvent("app_load", {'detail': [] });
 const btnStartApp = document.getElementById('start-btn');
 
-btnStartApp.addEventListener('click', (e) => startAppHandler(e, init, 'form'))
-document.addEventListener('app_load', (e) => startAppHandler(e, init));
+btnStartApp.addEventListener('click', (e) => startAppHandler(e, initApp, 'form'))
+document.addEventListener('app_load', (e) => startAppHandler(e, initApp));
 
 // get and render dealers
 renderDealers();

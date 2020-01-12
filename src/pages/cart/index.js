@@ -3,19 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
     addToCart,
-    removeFromCart,
+    removeCountFromCart,
     removeItemFromCart,
     removeAllCart
 } from 'actions/index';
 
 import CardDefault from 'components/cards/cardDefault';
+import Button from 'components/button';
 
-const Cart = ({ products, addToCart, removeFromCart, removeItemFromCart, removeAllCart }) => {
+import { setCartLocalStorage } from 'utils/index';
+
+const Cart = ({ products, addToCart, removeCountFromCart, removeItemFromCart, removeAllCart }) => {
     const [price, setPrice] = useState(0);
 
     const clickRemoveHandler = (product) => {
         if (product.count > 1) {
-            removeFromCart(product);
+            removeCountFromCart(product);
         }
     }
 
@@ -24,7 +27,7 @@ const Cart = ({ products, addToCart, removeFromCart, removeItemFromCart, removeA
     }
 
     const changeCountHandler = (e, product) => {
-        const parsedValue = parseInt(e.target.value);
+        const parsedValue = parseInt(e.target.value, 10);
 
         if (!isNaN(parsedValue) && ( parsedValue > 0)) {
             addToCart(product, parsedValue);
@@ -38,13 +41,13 @@ const Cart = ({ products, addToCart, removeFromCart, removeItemFromCart, removeA
                 <h5>Цена: ₽ {+(count * price).toFixed(2).toString()}</h5>
 
                 <div className="row">
-                    <button
-                        type="button"
-                        className="col waves-effect waves-light btn-floating red py-0"
-                        onClick={() => clickRemoveHandler(product)}
+                    <Button
+                        className="col btn-floating red py-0"
+                        clickHandler={() => clickRemoveHandler(product)}
                     >
-                    <i className="material-icons">remove</i>
-                    </button>
+                        <i className="material-icons">remove</i>
+                    </Button>
+
                     <div className="col s6 py-10">
                         <input
                             type="text"
@@ -53,32 +56,33 @@ const Cart = ({ products, addToCart, removeFromCart, removeItemFromCart, removeA
                         />
                     </div>
 
-                    <button 
-                        type="button"
-                        className="col waves-effect waves-light btn-floating green py-0"
-                        onClick={() => addToCart(product)}
+                    <Button
+                        className="col btn-floating green py-0"
+                        clickHandler={() => addToCart(product)}
                     >
                         <i className="material-icons">add</i>
-                    </button>
+                    </Button>
                 </div>
-                <button 
-                    type="button"
-                    className="btn waves-effect waves-light"
-                    onClick={() => removeItemFromCart(product)}
+                <Button
+                    clickHandler={() => removeItemFromCart(product)}
                 >
-                        <i className="material-icons left">delete_forever</i>
-                        Удалить
-                </button>
+                    <i className="material-icons left">delete_forever</i>
+                    Удалить
+                </Button>
             </React.Fragment>
         )
     }
 
     useEffect(() => {
         const sum = products.reduce((acc,{price, count}) => {
-            return acc += price * count;
+            return acc + (price * count);
         }, 0);
 
-        setPrice(sum.toFixed(2));
+        setPrice(+sum.toFixed(2));
+    }, [products])
+
+    useEffect(() => {
+        setCartLocalStorage(products);
     }, [products])
 
     return (
@@ -88,16 +92,16 @@ const Cart = ({ products, addToCart, removeFromCart, removeItemFromCart, removeA
                 <div>
                     <h2>Товары в вашей корзине</h2>
                     <h4>
+                        {/* toString removes zero */}
                         Общая стоимость товаров: ₽ {price.toString()}
                     </h4>
-                    <button 
-                        type="button"
-                        className="btn mb-3"
-                        onClick={clickRemoveAllHandler}
+                    <Button
+                        className="mb-3"
+                        clickHandler={clickRemoveAllHandler}
                     >
                         <i className="material-icons left">delete_forever</i>
                         Удалить все товары
-                    </button>
+                    </Button>
                     <div className="row">
                         {
                             products.map((product, i) => {
@@ -131,7 +135,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     addToCart,
-    removeFromCart,
+    removeCountFromCart,
     removeItemFromCart,
     removeAllCart
 }
@@ -139,7 +143,7 @@ const mapDispatchToProps = {
 Cart.propTypes = {
     products: PropTypes.array.isRequired,
     addToCart: PropTypes.func.isRequired,
-    removeFromCart: PropTypes.func.isRequired,
+    removeCountFromCart: PropTypes.func.isRequired,
     removeItemFromCart: PropTypes.func.isRequired,
     removeAllCart: PropTypes.func.isRequired,
 }

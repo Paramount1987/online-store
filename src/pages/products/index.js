@@ -5,12 +5,9 @@ import { requestProducts, addToCart } from 'actions/index';
 
 import CardDefault from 'components/cards/cardDefault';
 import Loader from 'components/loader';
+import Button from 'components/button';
 
 const ProductsPage = ({products, dealers, isLoading, requestProducts, addToCart}) => {
-
-    const clickAddHandler = (product) => {
-
-    }
 
     useEffect(() => {
        requestProducts(dealers);
@@ -30,21 +27,17 @@ const ProductsPage = ({products, dealers, isLoading, requestProducts, addToCart}
                         products.map((card, i) => {
                             return (
                                 <div
-                                    key={i}
+                                    key={i} // TODO: get id product from backend
                                     className="col s12 m6 l4 mb-3"
                                 >
-                                    <CardDefault
-                                        product={card}
-                                    >
-                                        <button
-                                            type="button"
-                                            className="btn waves-effect waves-light"
-                                            onClick={() => addToCart(card)}
+                                    <CardDefault product={card}>
+                                        <Button
+                                            clickHandler={() => addToCart(card)}
                                         >
                                             <i className="material-icons left">add_shopping_cart</i>
-                                            в корзину
+                                                в корзину
                                             <span> ₽ {card.price}</span>
-                                        </button>
+                                        </Button>
                                     </CardDefault>
                                 </div>
                             )

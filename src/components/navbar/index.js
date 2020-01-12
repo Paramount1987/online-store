@@ -6,9 +6,9 @@ const Navbar = ({cart}) => {
     const [countCart, setCountCart] = useState(0);
 
     useEffect(() => {
-      let sum = 0;
-
-      cart.forEach(el => sum += el.count);
+      const sum = cart.reduce((acc,el) => {
+        return acc + el.count;
+      }, 0);
       setCountCart(sum);
     }, [cart]);
 

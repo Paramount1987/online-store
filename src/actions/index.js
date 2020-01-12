@@ -3,7 +3,7 @@ import {
     REQUEST_SUCCESS_PRODUCTS,
     REQUEST_FAIL_PRODUCTS,
     ADD_CART,
-    REMOVE_CART,
+    REMOVE_COUNT_CART,
     REMOVE_ITEM_CART,
     REMOVE_ALL_CART
 } from 'constants/index';
@@ -45,9 +45,9 @@ export function addToCart (product, count) {
     }
 }
 
-export function removeFromCart (product) {
+export function removeCountFromCart (product) {
     return {
-        type: REMOVE_CART,
+        type: REMOVE_COUNT_CART,
         payload: {
             product
         }

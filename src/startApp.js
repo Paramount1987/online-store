@@ -10,25 +10,23 @@ export const renderDealers = async () => {
 
 }
 
-export const startAppHandler = (e, callback, type) => {
+export const startAppHandler = (event, initApp, typeEvent) => {
     let dealers = [];
+    const form = document.getElementById('form-dealers');
 
-    if (type === 'form') {
-        const form = document.getElementById('form-dealers');
+    if (typeEvent === 'form' && form) {
         const checkboxes = form.querySelectorAll('.ch-dealers');
+        const checkboxesArray = Array.prototype.slice.call(checkboxes);
 
-        for (let i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                dealers.push(checkboxes[i].value);
-            }
-        }
-
+        dealers = checkboxesArray
+                    .filter(el => el.checked)
+                    .map(item => item.value);
     } else {
-        dealers = e.detail ? e.detail : [];
+        dealers = event.detail ? event.detail : [];
     }
 
     document.getElementById('start-app').remove();
-    callback(dealers);
+    initApp(dealers);
 }
 
 const renderCheckboxes = (dealers) => {

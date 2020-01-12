@@ -1,11 +1,11 @@
 import {
     ADD_CART,
-    REMOVE_CART,
+    REMOVE_COUNT_CART,
     REMOVE_ITEM_CART,
     REMOVE_ALL_CART,
 } from 'constants/index';
 
-import { setCartLocalStorage, getCartLocalStorage } from 'utils/index';
+import { getCartLocalStorage } from 'utils/index';
 
 export default (state = getCartLocalStorage(), action) => {
     const {type, payload} = action;
@@ -16,24 +16,22 @@ export default (state = getCartLocalStorage(), action) => {
             const id = state.findIndex(item => item.name === product.name);
 
             if (id === -1) {
-                const newstate = state.concat({...product, count: 1});
-                setCartLocalStorage(newstate);
+                const newstate = [...state, {...product, count: 1}];
+
                 return newstate;
             }
 
-            count ? state[id].count = count :state[id].count++;
-
-            setCartLocalStorage([...state]);
+            count ?
+                state[id].count = count
+                : state[id].count++;
 
             return [...state];
         }
 
-        case REMOVE_CART: {
+        case REMOVE_COUNT_CART: {
             const { product } = payload;
-            const id = state.findIndex(item => item.name === product.name);
 
-            state[id].count--;
-            setCartLocalStorage([...state]);
+            state.find(item => item.name === product.name).count--;
 
             return [...state];
         }
@@ -43,13 +41,11 @@ export default (state = getCartLocalStorage(), action) => {
             const id = state.findIndex(item => item.name === product.name);
 
             state.splice(id, 1);
-            setCartLocalStorage([...state]);
 
             return [...state];
         }
 
         case REMOVE_ALL_CART:
-            setCartLocalStorage([]);
             return [];
         default:
             return state;
